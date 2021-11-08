@@ -33,7 +33,7 @@ steps:
 - task: AzureWebApp@1
   displayName: 'Deploy to App Service'
   inputs:
-    azureSubscription: '646196c4-48f3-45f0-b4dd-b7180f7662df'
+    azureSubscription: '$(serviceConnection)'
     appName: 'React-ionicon-app-service'
     appType: 'webApp'
     package: '$(System.ArtifactsDirectory)/$(Build.BuildId).zip'
