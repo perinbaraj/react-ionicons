@@ -20,6 +20,13 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
+- task: CopyFiles@2
+  displayName: 'Copy files'
+  inputs:
+    sourceFolder: '$(directory)/build' 
+    Contents: '**/*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    cleanTargetFolder: true
 - task: ArchiveFiles@2
   inputs:
     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/build' 
@@ -27,8 +34,10 @@ steps:
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
 
-- publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-  artifact: '$(Build.BuildId)'
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifacts'
+  inputs: 
+    pathtoPublish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
 
 - task: AzureWebApp@1
   displayName: 'Deploy to App Service'
