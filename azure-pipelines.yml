@@ -10,7 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  directory: react-azure-demo
+  directory: Sample-ReactIonicons
   stage: development
   
 steps:
